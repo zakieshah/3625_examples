@@ -1,0 +1,8 @@
+numpy
+pandas
+matplotlib
+imageio
+beautifulsoup4
+requests
+scipy
+gymnasium
