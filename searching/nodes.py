@@ -71,9 +71,19 @@ class WikiPage(Node):
             self.page_text = body.get_text(' ', strip=True)
         return self.page_text
 
+
 if __name__ == '__main__':
-    one = WikiPage('https://en.wikipedia.org/wiki/Breadth-first_search')
-    two = one.children[0]
-    three = two.children[0]
-    print(three.get_page_text())
-    print([str(x) for x in three.get_ancestors()])
+
+    # instantiate an object representing a particular wiki page like this:
+    page = WikiPage('https://en.wikipedia.org/wiki/Mount_Royal_University')
+
+    # by default, the object is not expanded, meaning we don't know what it's children are
+    print(page)  # prints "Mount_Royal_University (not expanded)"
+
+    # accessing the children attribute expands the page
+    page.children  # returns a list of new (child) page objects, accessible from page
+    print(page)  # now prints "Mount_Royal_University (166 children)"
+    child_0 = page.children[0]
+
+    # calling get_ancestors() returns a list of pages along the path to the page
+    print(child_0.get_ancestors())  # prints a list with 2 pages, the first of which is the MRU page

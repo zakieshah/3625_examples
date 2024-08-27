@@ -8,17 +8,6 @@ def himmelblaus_function(input_vector) -> float:
     return (x**2 + y - 11)**2 + (x + y**2 - 7)**2
 
 
-def sharpe_ratio(input_vector):
-    cov = np.array([[20, -1], [5, -1]])
-    expected_returns = np.array([10, 5])
-    risk_free_return = 2
-    portfolio_variance = 0
-    for i in range(2):
-        for j in range(2):
-            portfolio_variance += input_vector[i] * input_vector[j] * cov[i, j]
-    return -(expected_returns.dot(input_vector) - risk_free_return) / np.sqrt(portfolio_variance)
-
-
 def ad_campaign_profit(input_vector):
     input_vector = input_vector * 7 - 3
     x, y, z, _ = input_vector
@@ -37,10 +26,10 @@ def sum_city_distances(input_vector) -> float:
 
 if __name__ == '__main__':
 
-    from scipy.optimize import minimize
-    result = minimize(ad_campaign_profit, x0=[0.5, 0.5, 0.5, 0], bounds=[[0, 1]]*4, method='Nelder-Mead')
-    print(result)
-    exit()
+    # from scipy.optimize import minimize
+    # result = minimize(ad_campaign_profit, x0=[0.5, 0.5, 0.5, 0], bounds=[[0, 1]]*4, method='Nelder-Mead')
+    # print(result)
+    # exit()
 
 
     x = y = np.arange(0, 1, 0.05)

@@ -1,5 +1,4 @@
 from environment import MiningGame
-import numpy as np
 
 # instantiate the game
 game = MiningGame(n_mines=2)
