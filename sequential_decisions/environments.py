@@ -70,6 +70,33 @@ class ToyMDP(Env[ObsType, int]):
         pass
 
 
+class TwoStateMDP(ToyMDP[tuple]):
+    """
+    a tiny MDP with two states and two actions
+    """
+
+    def __init__(self, **kwargs):
+        # dict of (state, action, new_state) -> reward
+        self.reward_mean_std = {
+            ('B', 1, 'A'): (10, 0.5),
+            ('A', 2, 'B'): (-1, 0.5),
+            ('A', 1, 'A'): (2, 0.5)
+        }
+
+        super().__init__(
+            transition_probabilities={
+                'A': {
+                    1: {'A': 1.0},
+                    2: {'A': 0.1, 'B': 0.9}
+                },
+                'B': {
+                    1: {'A': 1.0},
+                    2: {'B': 1.0}
+                }
+            },
+            reward_function=lambda s, a, s_prime: np.random.normal(*self.reward_mean_std.get((s, a, s_prime), (0, 0)))
+        )
+
 class ThreeStateMDP(ToyMDP[tuple]):
     """
     An implementation of the small markov decision process illustrated at
@@ -248,26 +275,11 @@ class TicTacToe(Env):
 
 if __name__ == '__main__':
 
-    def process(event):
-        if event.key == 'up':
-            action = 0
-        elif event.key == 'right':
-            action = 1
-        elif event.key == 'down':
-            action = 2
-        elif event.key == 'left':
-            action = 3
-        _, reward, terminated, _, _ = mdp.step(action)
-        print('reward:', reward)
-        mdp.render()
-        if terminated:
-            print('done')
-            plt.pause(1)
-            exit(0)
+    env = TwoStateMDP()
+    state, _ = env.reset()
+    while True:
+        action = int(input(f'state={state}, choose from actions: {env.get_actions(state)}: '))
+        state, reward, _, _, _ = env.step(action)
+        if reward != 0:
+            print(f'got reward of {reward:.2f}')
 
-    mdp = RusselNorvigMDP()
-    fig, ax = plt.subplots(1, 1)
-    fig.canvas.mpl_connect('key_press_event', process)
-    mdp.render()
-
-    plt.show()
