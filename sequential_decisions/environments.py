@@ -278,8 +278,11 @@ if __name__ == '__main__':
     env = TwoStateMDP()
     state, _ = env.reset()
     while True:
-        action = int(input(f'state={state}, choose from actions: {env.get_actions(state)}: '))
-        state, reward, _, _, _ = env.step(action)
+        action = input(f'state={state}, choose from actions: {env.get_actions(state)} ("q" to quit): ')
+        if action == 'q':
+            break
+
+        state, reward, _, _, _ = env.step(int(action))
         if reward != 0:
             print(f'got reward of {reward:.2f}')
 
