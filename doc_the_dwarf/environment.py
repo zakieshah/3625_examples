@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from imageio.v3 import imread
+import os
 
 
 class MiningGame:
@@ -13,7 +14,8 @@ class MiningGame:
         self.n_mines = n_mines
         self.reward_probabilities = [0.4, 0.6] + [0.5] * (n_mines-2)
         np.random.shuffle(self.reward_probabilities)
-        self.im = np.hstack([imread(f'images/img_{i % 2}.png') for i in range(n_mines)])
+        dirname = os.path.dirname(__file__)
+        self.im = np.hstack([imread(f'{dirname}/images/img_{i % 2}.png') for i in range(n_mines)])
         self._render()
 
     def choose_mine(self, mine_number: int):
