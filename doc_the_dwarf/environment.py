@@ -9,13 +9,14 @@ class MiningGame:
     A very simple game: choose from two mines and receive a reward. Deduce which mine gives better reward overall
     """
 
-    def __init__(self, n_mines=2):
+    def __init__(self, n_mines=2, render_delay=0.001):
         assert n_mines >= 2
         self.n_mines = n_mines
         self.reward_probabilities = [0.4, 0.6] + [0.5] * (n_mines-2)
         np.random.shuffle(self.reward_probabilities)
         dirname = os.path.dirname(__file__)
         self.im = np.hstack([imread(f'{dirname}/images/img_{i % 2}.png') for i in range(n_mines)])
+        self.render_delay = render_delay
         self._render()
 
     def choose_mine(self, mine_number: int):
@@ -48,5 +49,5 @@ class MiningGame:
                      fontsize=20, fontweight='bold', backgroundcolor='w',
                      c='r' if reward < 0 else 'y')
 
-        plt.pause(0.2)
+        plt.pause(self.render_delay)
 
