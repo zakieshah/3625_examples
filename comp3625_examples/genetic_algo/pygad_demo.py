@@ -34,7 +34,7 @@ ga_instance = pygad.GA(num_generations=50,
                        init_range_low=-2,
                        init_range_high=5,
                        parent_selection_type='sss',
-                       crossover_type='single_point',
+                       crossover_type='artithmetix_xover',
                        mutation_type='random',
                        mutation_percent_genes=10)
 

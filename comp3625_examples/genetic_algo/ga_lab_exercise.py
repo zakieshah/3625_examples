@@ -30,3 +30,16 @@ plt.show()
 # creates a linear combination of the two parents: offspring = 0.5*parent1 + 0.5*parent2
 
 # your code here
+
+def fitness_func(ga_instance, solution, solution_idx):
+    distance = sum_city_distances(solution)
+    return -distance
+
+
+def artithmetix_xover(parents, offspring_size, ga_instance):
+    children= []
+    for child in (offspring_size[0]):
+        child = parents[0] *0.5  + parents[1] * 0.5
+        children.append(child)
+    return np.array(children)
+
